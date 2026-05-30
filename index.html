@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNWALL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      color: #333;
+    }
+
+    /* ========== GALLERY VIEW ========== */
+    #gallery-view {
+      padding: 80px 0 100px;
+    }
+
+    #site-title {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.4em;
+      color: #b0a89a;
+      margin-bottom: 48px;
+    }
+
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    @media (max-width: 700px) {
+      #grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 420px) {
+      #grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .cell {
+      aspect-ratio: 1;
+      overflow: hidden;
+      cursor: pointer;
+      background: #e0dbd4;
+    }
+
+    .cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease, filter 0.3s ease;
+    }
+
+    .cell:hover img {
+      transform: scale(1.05);
+      filter: brightness(0.85);
+    }
+
+    /* ========== DETAIL VIEW ========== */
+    #detail-view {
+      display: none;
+      padding: 48px 24px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    #back-btn {
+      display: block;
+      background: none;
+      border: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      color: #aaa;
+      cursor: pointer;
+      margin-bottom: 28px;
+      padding: 0;
+    }
+    #back-btn:hover { color: #555; }
+
+    #detail-title {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      color: #aaa;
+      margin-bottom: 28px;
+    }
+
+    #detail-img-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    #detail-img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    #detail-overlay {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      padding: 14px 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      line-height: 1.8;
+      cursor: pointer;
+      transition: opacity 0.25s ease;
+      user-select: none;
+    }
+
+    #detail-overlay.info-mode {
+      background: rgba(80, 160, 80, 0.72);
+      color: #fff;
+    }
+
+    #detail-overlay.map-mode {
+      background: transparent;
+      padding: 0;
+    }
+
+    #detail-overlay.map-mode iframe {
+      display: block;
+      width: 200px;
+      height: 120px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ギャラリー画面 -->
+  <div id="gallery-view">
+    <p id="site-title">UNWALL</p>
+    <div id="grid"></div>
+  </div>
+
+  <!-- 詳細画面 -->
+  <div id="detail-view">
+    <button id="back-btn">← BACK</button>
+    <p id="detail-title"></p>
+    <div id="detail-img-wrap">
+      <img id="detail-img" src="" alt="">
+      <div id="detail-overlay" class="info-mode"></div>
+    </div>
+  </div>
+
+  <script>
+    const galleryView = document.getElementById('gallery-view');
+    const detailView  = document.getElementById('detail-view');
+    const grid        = document.getElementById('grid');
+    const detailTitle = document.getElementById('detail-title');
+    const detailImg   = document.getElementById('detail-img');
+    const detailOverlay = document.getElementById('detail-overlay');
+    const backBtn     = document.getElementById('back-btn');
+
+    let currentPhoto  = null;
+    let overlayMode   = 'info';
+
+    // photos.json を読み込んでグリッドを生成
+    fetch('photos.json')
+      .then(r => r.json())
+      .then(photos => {
+        photos.forEach(photo => {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          const img = document.createElement('img');
+          img.src = photo.file;
+          img.alt = 'UNWALL #' + photo.id;
+          img.loading = 'lazy';
+          cell.appendChild(img);
+          grid.appendChild(cell);
+          cell.addEventListener('click', () => showDetail(photo));
+        });
+      })
+      .catch(() => {
+        grid.innerHTML = '<p style="color:#aaa;font-size:13px;padding:20px;">photos.jsonが読み込めませんでした</p>';
+      });
+
+    function showDetail(photo) {
+      currentPhoto = photo;
+      overlayMode  = 'info';
+      galleryView.style.display = 'none';
+      detailView.style.display  = 'block';
+      detailTitle.textContent   = 'UNWALL #' + photo.id;
+      detailImg.src = photo.file;
+      detailImg.alt = 'UNWALL #' + photo.id;
+      renderOverlay();
+      window.scrollTo(0, 0);
+    }
+
+    function renderOverlay() {
+      if (overlayMode === 'info') {
+        detailOverlay.className = 'info-mode';
+        const ftAlt = Math.round(currentPhoto.alt * 3.281);
+        detailOverlay.innerHTML =
+          'DATE ' + currentPhoto.date + '<br>' +
+          'ALT, '  + currentPhoto.alt + ' m (' + ftAlt + ' ft)<br>' +
+          'LAT, '  + currentPhoto.lat + '<br>' +
+          'LONG, ' + currentPhoto.lng;
+      } else {
+        detailOverlay.className = 'map-mode';
+        // 緯度経度の数値部分だけ抽出してGoogleマップを表示
+        const latNum  = currentPhoto.lat.match(/[\d.]+/g).slice(0,3);
+        const lngNum  = currentPhoto.lng.match(/[\d.]+/g).slice(0,3);
+        const latDec  = toDecimal(latNum);
+        const lngDec  = toDecimal(lngNum);
+        const mapUrl  = 'https://maps.google.com/maps?q=' + latDec + ',' + lngDec + '&z=15&output=embed';
+        detailOverlay.innerHTML = '<iframe src="' + mapUrl + '" title="map"></iframe>';
+      }
+    }
+
+    function toDecimal(parts) {
+      return (parseFloat(parts[0]) + parseFloat(parts[1])/60 + parseFloat(parts[2])/3600).toFixed(6);
+    }
+
+    detailOverlay.addEventListener('click', () => {
+      overlayMode = overlayMode === 'info' ? 'map' : 'info';
+      renderOverlay();
+    });
+
+    backBtn.addEventListener('click', () => {
+      detailView.style.display  = 'none';
+      galleryView.style.display = 'block';
+      window.scrollTo(0, 0);
+    });
+  </script>
+
+</body>
+</html>
