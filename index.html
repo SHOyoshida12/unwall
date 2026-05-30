@@ -367,6 +367,19 @@
     }
 
     detailOverlay.addEventListener('click', () => {
+      detailImg.addEventListener('click', () => {
+      if (overlayMode === 'map') {
+        overlayMode = 'info';
+        renderOverlay();
+      }
+    });
+
+    document.getElementById('detail-view').addEventListener('click', (e) => {
+      if (overlayMode === 'map' && e.target === document.getElementById('detail-view')) {
+        overlayMode = 'info';
+        renderOverlay();
+      }
+    });
       overlayMode = overlayMode === 'info' ? 'map' : 'info';
       renderOverlay();
     });
