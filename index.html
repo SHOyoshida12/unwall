@@ -15,18 +15,42 @@
       color: #333;
     }
 
-    /* ========== GALLERY VIEW ========== */
-    #gallery-view {
-      padding: 80px 0 100px;
+    /* ========== NAV ========== */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 32px;
+      background: rgba(255,255,255,0.95);
     }
 
-    #site-title {
-      text-align: center;
-      font-size: 13px;
+    #nav-title {
+      font-size: 12px;
       font-weight: 300;
       letter-spacing: 0.4em;
       color: #b0a89a;
-      margin-bottom: 48px;
+      cursor: pointer;
+    }
+    #nav-title:hover { color: #777; }
+
+    #nav-about {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      color: #b0a89a;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    #nav-about:hover { color: #777; }
+
+    /* ========== GALLERY VIEW ========== */
+    #gallery-view {
+      padding: 100px 0 100px;
     }
 
     #grid {
@@ -68,24 +92,10 @@
     /* ========== DETAIL VIEW ========== */
     #detail-view {
       display: none;
-      padding: 48px 24px 80px;
+      padding: 100px 24px 80px;
       max-width: 900px;
       margin: 0 auto;
     }
-
-    #back-btn {
-      display: block;
-      background: none;
-      border: none;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 12px;
-      letter-spacing: 0.25em;
-      color: #aaa;
-      cursor: pointer;
-      margin-bottom: 28px;
-      padding: 0;
-    }
-    #back-btn:hover { color: #555; }
 
     #detail-title {
       text-align: center;
@@ -109,8 +119,7 @@
 
     #detail-overlay {
       position: absolute;
-      bottom: 0;
-      right: 0;
+      bottom: 0; right: 0;
       padding: 14px 16px;
       font-family: 'Cormorant Garamond', serif;
       font-size: 11px;
@@ -138,42 +147,158 @@
       height: 120px;
       border: none;
     }
+
+    #random-btn {
+      display: block;
+      margin: 32px auto 0;
+      background: none;
+      border: 0.5px solid #ccc;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: #aaa;
+      cursor: pointer;
+      padding: 10px 24px;
+      transition: all 0.2s ease;
+    }
+    #random-btn:hover { border-color: #888; color: #555; }
+
+    /* ========== ABOUT VIEW ========== */
+    #about-view {
+      display: none;
+      padding: 120px 24px 100px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    #about-title {
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.4em;
+      color: #b0a89a;
+      margin-bottom: 56px;
+      text-align: center;
+    }
+
+    /* 言語切り替えタブ */
+    #lang-tabs {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 36px;
+      border-bottom: 0.5px solid #e8e4de;
+      padding-bottom: 12px;
+    }
+
+    .lang-tab {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: #ccc;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: 'Cormorant Garamond', serif;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    .lang-tab:hover { color: #888; }
+    .lang-tab.active { color: #888; border-bottom: 0.5px solid #888; padding-bottom: 12px; margin-bottom: -13px; }
+
+    .lang-block { display: none; }
+    .lang-block.active { display: block; }
+
+    .about-text {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 2.4;
+      color: #666;
+      margin-bottom: 52px;
+    }
+
+    #about-instagram {
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: #aaa;
+      text-decoration: none;
+      border: 0.5px solid #ddd;
+      padding: 12px 28px;
+      width: fit-content;
+      margin: 0 auto;
+      transition: all 0.2s ease;
+    }
+    #about-instagram:hover { border-color: #888; color: #555; }
   </style>
 </head>
 <body>
 
+  <!-- ナビゲーション -->
+  <nav id="nav">
+    <span id="nav-title">UNWALL</span>
+    <button id="nav-about">ABOUT</button>
+  </nav>
+
   <!-- ギャラリー画面 -->
   <div id="gallery-view">
-    <p id="site-title">UNWALL</p>
     <div id="grid"></div>
   </div>
 
   <!-- 詳細画面 -->
   <div id="detail-view">
-    <button id="back-btn">← BACK</button>
     <p id="detail-title"></p>
     <div id="detail-img-wrap">
       <img id="detail-img" src="" alt="">
       <div id="detail-overlay" class="info-mode"></div>
     </div>
+    <button id="random-btn">RANDOM →</button>
+  </div>
+
+  <!-- ABOUTページ -->
+  <div id="about-view">
+    <p id="about-title">UNWALL</p>
+
+    <div id="lang-tabs">
+      <button class="lang-tab active" data-lang="ja">JP</button>
+      <button class="lang-tab" data-lang="en">EN</button>
+      <button class="lang-tab" data-lang="zh">中文</button>
+    </div>
+
+    <div class="lang-block active" data-lang="ja">
+      <p class="about-text">外を歩けば、風化して人工と自然の境界が曖昧になったような壁を見かけます。その場になじみながらも、本来の人工物としての頑なさは形を潜めたこれらをUNWALLと名付け、撮り集めています。グラフィック的なおもしろさもあれば、見立てを誘うような不思議さもあるUNWALLをご紹介します。自由に楽しんでいただけたら嬉しいです。</p>
+    </div>
+
+    <div class="lang-block" data-lang="en">
+      <p class="about-text">When walking through the city, I often come across walls whose surfaces have weathered over time, blurring the boundary between the artificial and the natural.<br><br>Though they have settled into their surroundings, the rigidity they once held as man-made structures has quietly faded. I call these walls "UNWALL" and continue to photograph and collect them.<br><br>Some reveal an unexpected graphic beauty, while others invite imagination through their ambiguity and strangeness. I hope you enjoy exploring the world of UNWALL in your own way.</p>
+    </div>
+
+    <div class="lang-block" data-lang="zh">
+      <p class="about-text">走在街上時，我常會看見一些因風化而使人工與自然界線變得模糊的牆面。<br><br>它們融入周遭環境之中，原本作為人工構造物的堅硬與固執，彷彿已悄悄隱去。我將這些牆面稱為「UNWALL」，並持續拍攝與蒐集它們。<br><br>有些展現出令人著迷的圖像感，有些則帶著引人聯想的神祕氣息。希望你能以自己的方式，自由地欣賞 UNWALL 的世界。</p>
+    </div>
+
+    <a id="about-instagram" href="https://www.instagram.com/sho_picnic/" target="_blank">INSTAGRAM →</a>
   </div>
 
   <script>
-    const galleryView = document.getElementById('gallery-view');
-    const detailView  = document.getElementById('detail-view');
-    const grid        = document.getElementById('grid');
-    const detailTitle = document.getElementById('detail-title');
-    const detailImg   = document.getElementById('detail-img');
+    const galleryView   = document.getElementById('gallery-view');
+    const detailView    = document.getElementById('detail-view');
+    const aboutView     = document.getElementById('about-view');
+    const grid          = document.getElementById('grid');
+    const detailTitle   = document.getElementById('detail-title');
+    const detailImg     = document.getElementById('detail-img');
     const detailOverlay = document.getElementById('detail-overlay');
-    const backBtn     = document.getElementById('back-btn');
+    const randomBtn     = document.getElementById('random-btn');
+    const navTitle      = document.getElementById('nav-title');
+    const navAbout      = document.getElementById('nav-about');
 
-    let currentPhoto  = null;
-    let overlayMode   = 'info';
+    let allPhotos    = [];
+    let currentPhoto = null;
+    let overlayMode  = 'info';
 
     // photos.json を読み込んでグリッドを生成
     fetch('photos.json')
       .then(r => r.json())
       .then(photos => {
+        allPhotos = photos;
         photos.sort(() => Math.random() - 0.5);
         photos.forEach(photo => {
           const cell = document.createElement('div');
@@ -191,16 +316,31 @@
         grid.innerHTML = '<p style="color:#aaa;font-size:13px;padding:20px;">photos.jsonが読み込めませんでした</p>';
       });
 
+    function showView(view) {
+      galleryView.style.display = 'none';
+      detailView.style.display  = 'none';
+      aboutView.style.display   = 'none';
+      view.style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
     function showDetail(photo) {
       currentPhoto = photo;
       overlayMode  = 'info';
-      galleryView.style.display = 'none';
-      detailView.style.display  = 'block';
-      detailTitle.textContent   = 'UNWALL #' + photo.id;
+      detailTitle.textContent = 'UNWALL #' + photo.id;
       detailImg.src = photo.file;
       detailImg.alt = 'UNWALL #' + photo.id;
+      showView(detailView);
       renderOverlay();
-      window.scrollTo(0, 0);
+    }
+
+    function showRandom() {
+      if (allPhotos.length === 0) return;
+      let next;
+      do {
+        next = allPhotos[Math.floor(Math.random() * allPhotos.length)];
+      } while (next.id === currentPhoto.id && allPhotos.length > 1);
+      showDetail(next);
     }
 
     function renderOverlay() {
@@ -214,12 +354,11 @@
           'LONG, ' + currentPhoto.lng;
       } else {
         detailOverlay.className = 'map-mode';
-        // 緯度経度の数値部分だけ抽出してGoogleマップを表示
-        const latNum  = currentPhoto.lat.match(/[\d.]+/g).slice(0,3);
-        const lngNum  = currentPhoto.lng.match(/[\d.]+/g).slice(0,3);
-        const latDec  = toDecimal(latNum);
-        const lngDec  = toDecimal(lngNum);
-        const mapUrl  = 'https://maps.google.com/maps?q=' + latDec + ',' + lngDec + '&z=15&output=embed';
+        const latNum = currentPhoto.lat.match(/[\d.]+/g).slice(0,3);
+        const lngNum = currentPhoto.lng.match(/[\d.]+/g).slice(0,3);
+        const latDec = toDecimal(latNum);
+        const lngDec = toDecimal(lngNum);
+        const mapUrl = 'https://maps.google.com/maps?q=' + latDec + ',' + lngDec + '&z=15&output=embed';
         detailOverlay.innerHTML = '<iframe src="' + mapUrl + '" title="map"></iframe>';
       }
     }
@@ -233,10 +372,25 @@
       renderOverlay();
     });
 
-    backBtn.addEventListener('click', () => {
-      detailView.style.display  = 'none';
-      galleryView.style.display = 'block';
-      window.scrollTo(0, 0);
+    randomBtn.addEventListener('click', showRandom);
+    navTitle.addEventListener('click', () => showView(galleryView));
+    navAbout.addEventListener('click', () => {
+      if (aboutView.style.display === 'block') {
+        showView(galleryView);
+      } else {
+        showView(aboutView);
+      }
+    });
+
+    // 言語タブ切り替え
+    document.querySelectorAll('.lang-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const lang = tab.dataset.lang;
+        document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.lang-block').forEach(b => b.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelector('.lang-block[data-lang="' + lang + '"]').classList.add('active');
+      });
     });
   </script>
 
