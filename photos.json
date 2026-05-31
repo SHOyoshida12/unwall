@@ -2598,5 +2598,101 @@
     "alt": 13,
     "lat": "34° 18' 15.200\" N",
     "lng": "133° 5' 24.480\" E"
+  },
+  {
+    "id": 326,
+    "file": "https://drive.google.com/thumbnail?id=1kpQ_M_R96qn6SlaPH6eNP4HlQGcvXa6V&sz=w1200",
+    "date": "2025/05/19",
+    "alt": 32,
+    "lat": "34° 18' 12.440\" N",
+    "lng": "133° 8' 59.150\" E"
+  },
+  {
+    "id": 327,
+    "file": "https://drive.google.com/thumbnail?id=1Fg6-UIHIh86W1z4beKxDw0Fgl2Ih8txm&sz=w1200",
+    "date": "2025/05/28",
+    "alt": 59,
+    "lat": "35° 41' 16.690\" N",
+    "lng": "139° 30' 54.880\" E"
+  },
+  {
+    "id": 328,
+    "file": "https://drive.google.com/thumbnail?id=1BeVhgNCW06Fk4ycRPP7_S57SmMiy8LMF&sz=w1200",
+    "date": "2025/05/30",
+    "alt": 208,
+    "lat": "35° 9' 33.690\" N",
+    "lng": "138° 51' 19.520\" E"
+  },
+  {
+    "id": 329,
+    "file": "https://drive.google.com/thumbnail?id=1aMRncd470v1GyWcw1wLxOFoyboqk1zsN&sz=w1200",
+    "date": "2025/05/31",
+    "alt": 16,
+    "lat": "35° 7' 6.850\" N",
+    "lng": "138° 51' 58.080\" E"
+  },
+  {
+    "id": 330,
+    "file": "00330_IMG.jpeg",
+    "date": "2025/05/31",
+    "alt": 5,
+    "lat": "35° 4' 56.850\" N",
+    "lng": "138° 51' 27.210\" E"
+  },
+  {
+    "id": 331,
+    "file": "00331_IMG.jpeg",
+    "date": "2025/05/31",
+    "alt": 5,
+    "lat": "35° 5' 2.740\" N",
+    "lng": "138° 51' 24.690\" E"
+  },
+  {
+    "id": 332,
+    "file": "00332_IMG.jpeg",
+    "date": "2025/06/14",
+    "alt": 18,
+    "lat": "35° 39' 49.980\" N",
+    "lng": "139° 44' 42.750\" E"
+  },
+  {
+    "id": 333,
+    "file": "00333_IMG.jpeg",
+    "date": "2025/08/14",
+    "alt": 185,
+    "lat": "35° 19' 58.240\" N",
+    "lng": "137° 9' 14.370\" E"
+  },
+  {
+    "id": 334,
+    "file": "00334_IMG.jpeg",
+    "date": "2025/09/06",
+    "alt": 594,
+    "lat": "36° 40' 22.460\" N",
+    "lng": "139° 12' 40.690\" E"
+  },
+  {
+    "id": 335,
+    "file": "00335_IMG.jpeg",
+    "date": "2025/09/06",
+    "alt": 593,
+    "lat": "36° 40' 22.530\" N",
+    "lng": "139° 12' 40.580\" E"
+  },
+  {
+    "id": 336,
+    "file": "00336_IMG.jpeg",
+    "date": "2025/09/06",
+    "alt": 593,
+    "lat": "36° 40' 57.350\" N",
+    "lng": "139° 12' 49.540\" E"
+  },
+  {
+    "id": 337,
+    "file": "00337_IMG.jpeg",
+    "date": "2025/09/06",
+    "alt": 609,
+    "lat": "36° 40' 47.470\" N",
+    "lng": "139° 12' 50.640\" E"
   }
 ]
